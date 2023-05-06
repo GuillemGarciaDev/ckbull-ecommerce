@@ -2,8 +2,9 @@ import { ModalProvider } from "@peersyst/react-components";
 import { BrowserRouter, Outlet, RouteObject, useRoutes } from "react-router-dom";
 import MainLayout from "./components/display/MainLayout/MainLayout";
 import MainScreen from "./screens/Main/Main";
+import ProductScreen from "./screens/Product/ProductScreen";
 
-enum MainRoutes {
+export enum MainRoutes {
   HOME = "",
   PRODUCT = "/product/:id",
 }
@@ -17,7 +18,13 @@ const useMainRoutes = (): RouteObject[] => {
           <Outlet />
         </MainLayout>
       ),
-      children: [{ path: MainRoutes.HOME, element: <MainScreen /> }],
+      children: [
+        { path: MainRoutes.HOME, element: <MainScreen /> },
+        {
+          path: MainRoutes.PRODUCT,
+          element: <ProductScreen />,
+        },
+      ],
     },
   ];
 };

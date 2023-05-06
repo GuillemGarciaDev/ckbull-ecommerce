@@ -11,5 +11,6 @@ export const ClotheCardRoot = styled.img`
     width: 4rem;
     opacity: 1;
     filter: contrast(120%);
+    cursor: pointer;
   }
 `;

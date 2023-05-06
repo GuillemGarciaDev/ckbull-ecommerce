@@ -11,7 +11,7 @@ const AppBar = () => {
 
   return (
     <Row justifyContent="flex-end" css={{ width: "100%" }}>
-      <Button size="lg" onClick={handleLogin}>
+      <Button variant="outlined" size="lg" onClick={handleLogin}>
         Log in with CKBull
       </Button>
     </Row>
