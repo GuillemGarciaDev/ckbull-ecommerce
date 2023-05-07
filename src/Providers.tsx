@@ -1,11 +1,14 @@
 import { PropsWithChildren } from "react";
 import QueryClientProvider from "./queries/QueryClientProvider";
 import { ConfigProvider } from "./config";
+import { RecoilRoot } from "recoil";
 
 const Providers = ({ children }: PropsWithChildren<unknown>): JSX.Element => {
   return (
     <ConfigProvider>
-      <QueryClientProvider>{children}</QueryClientProvider>
+      <RecoilRoot>
+        <QueryClientProvider>{children}</QueryClientProvider>
+      </RecoilRoot>
     </ConfigProvider>
   );
 };

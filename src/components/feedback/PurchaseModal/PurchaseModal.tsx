@@ -1,6 +1,18 @@
-import { Button, CheckIcon, Expandable, Loader, Modal, Row, Typography, createModal } from "@peersyst/react-components";
+import {
+  Button,
+  CheckIcon,
+  Expandable,
+  Loader,
+  Modal,
+  ModalProps,
+  Row,
+  Typography,
+  createModal,
+  useModal,
+} from "@peersyst/react-components";
 import { PurchaseModalRoot } from "./PurchaseModal.styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useTransactionRequestPolling from "../../../hooks/useTransactionRequestPolling";
 
 interface BaseExpandableProps {
   active: boolean;
@@ -32,10 +44,33 @@ const PurchaseExpandable = ({ active, title, content, success = false }: BaseExp
   );
 };
 
-const PurchaseModal = createModal(({ close, ...modalProps }) => {
-  const [signActive, setSignActive] = useState(false);
+interface PurchaseModalProps extends ModalProps {
+  transactionRequestToken: string;
+}
+
+const PurchaseModal = createModal(({ transactionRequestToken, ...modalProps }: PurchaseModalProps) => {
+  const [signActive, setSignActive] = useState(true);
   const [signSuccess, setSignSuccess] = useState(false);
-  const [successActive, setSuccessActive] = useState(true);
+  const [successActive, setSuccessActive] = useState(false);
+
+  const close = () => hideModal(PurchaseModal.id);
+
+  const handleSuccess = () => {
+    setSignActive(false);
+    setSignSuccess(true);
+    setSuccessActive(true);
+  };
+
+  const { poll } = useTransactionRequestPolling(transactionRequestToken, handleSuccess);
+
+  const { hideModal } = useModal();
+
+  useEffect(() => {
+    if (signActive) {
+      poll();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [signActive]);
 
   return (
     <Modal {...modalProps}>
