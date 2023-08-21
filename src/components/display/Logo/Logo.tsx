@@ -9,7 +9,7 @@ const Logo = () => {
 
   return (
     <LogoRoot
-      src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Zara_Logo.svg/2560px-Zara_Logo.svg.png"
+      src="https://img.freepik.com/premium-vector/clothing-store-logo-design-inspiration-vector-illustration_500223-481.jpg"
       alt="logo"
       onClick={handleClick}
     />
